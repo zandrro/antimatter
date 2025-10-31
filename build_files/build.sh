@@ -64,8 +64,8 @@ dnf5 -y copr enable hazel-bunny/ricing
 dnf5 -y install --refresh kwin-effects-forceblur
 dnf5 -y copr disable hazel-bunny/ricing
 
-mkdir /usr/local/bin
-EMACS_LSP_BOOSTER="$(curl -Ls https://api.github.com/repos/blahgeek/emacs-lsp-booster/releases/latest | jq -r '.assets[] | select(.name| test(".*musl.zip$")).browser_download_url')" || (true && sleep 5)
-curl --retry 3 -L#o /tmp/emacs-lsp-booster.zip "$EMACS_LSP_BOOSTER"
-unzip -d /usr/local/bin/ /tmp/emacs-lsp-booster.zip
-rm -f /tmp/emacs-lsp-booster.zip
+# mkdir /usr/local/bin
+# EMACS_LSP_BOOSTER="$(curl -Ls https://api.github.com/repos/blahgeek/emacs-lsp-booster/releases/latest | jq -r '.assets[] | select(.name| test(".*musl.zip$")).browser_download_url')" || (true && sleep 5)
+# curl --retry 3 -L#o /tmp/emacs-lsp-booster.zip "$EMACS_LSP_BOOSTER"
+# unzip -d /usr/local/bin/ /tmp/emacs-lsp-booster.zip
+# rm -f /tmp/emacs-lsp-booster.zip
