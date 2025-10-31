@@ -11,7 +11,6 @@ FEDORA_PACKAGES=(
     mpv
     yt-dlp
     fish
-    ccls
     rust-analyzer
     libavutil
     maildir-utils
