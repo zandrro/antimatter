@@ -11,7 +11,6 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 dnf5 -y install emacs
-dnf5 -y install librewolf
 
 # Use a COPR Example:
 #
@@ -19,6 +18,9 @@ dnf5 -y install librewolf
 # dnf5 -y install package
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
+
+curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
+dnf5 -y install librewolf
 
 #### Example for enabling a System Unit File
 
