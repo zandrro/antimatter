@@ -39,8 +39,6 @@ EXCLUDED_PACKAGES=(
     podman-docker
     kwrite
     kate
-    kwrite
-    kate
 )
 
 # Remove excluded packages if they are installed
