@@ -37,6 +37,10 @@ EXCLUDED_PACKAGES=(
     plasma-discover-kns
     plasma-welcome-fedora
     podman-docker
+    kwrite
+    kate
+    kwrite
+    kate
 )
 
 # Remove excluded packages if they are installed
