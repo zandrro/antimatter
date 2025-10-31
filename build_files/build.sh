@@ -4,13 +4,50 @@ set -ouex pipefail
 
 ### Install packages
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+FEDORA_PACKAGES=(
+    fastfetch
+    emacs
+    ffmpeg
+    mpv
+    yt-dlp
+    fish
+    ccls
+    rust-analyzer
+    libavutil
+    maildir-utils
+    isync
+    msmtp
+    tranmission-cli
+    playerctl
+    libvterm
+)
 
-# this installs a package from fedora repos
-dnf5 -y install emacs
+dnf5 -y install "${FEDORA_PACKAGES[@]}"
+
+EXCLUDED_PACKAGES=(
+    fedora-bookmarks
+    fedora-chromium-config
+    fedora-chromium-config-kde
+    firefox
+    firefox-langpacks
+    firewall-config
+    kcharselect
+    krfb
+    krfb-libs
+    plasma-discover-kns
+    plasma-welcome-fedora
+    podman-docker
+)
+
+# Remove excluded packages if they are installed
+if [[ "${#EXCLUDED_PACKAGES[@]}" -gt 0 ]]; then
+    readarray -t INSTALLED_EXCLUDED < <(rpm -qa --queryformat='%{NAME}\n' "${EXCLUDED_PACKAGES[@]}" 2>/dev/null || true)
+    if [[ "${#INSTALLED_EXCLUDED[@]}" -gt 0 ]]; then
+        dnf5 -y remove "${INSTALLED_EXCLUDED[@]}"
+    else
+        echo "No excluded packages found to remove."
+    fi
+fi
 
 # Use a COPR Example:
 #
@@ -22,6 +59,7 @@ dnf5 -y install emacs
 curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
 dnf5 -y install librewolf
 
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
+EMACS_LSP_BOOSTER="$(curl -Ls https://api.github.com/repos/blahgeek/emacs-lsp-booster/releases/latest | jq -r '.assets[] | select(.name| test(".*musl.zip$")).browser_download_url')" || (true && sleep 5)
+curl --retry 3 -L#o /tmp/emacs-lsp-booster.zip "$EMACS_LSP_BOOSTER"
+unzip -d /usr/local/bin/ /tmp/emacs-lsp-booster.zip
+rm -f /tmp/emacs-lsp-booster.zip
