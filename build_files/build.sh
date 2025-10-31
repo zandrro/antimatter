@@ -60,6 +60,7 @@ fi
 curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
 dnf5 -y install librewolf
 
+mkdir -p /usr/local/bin
 EMACS_LSP_BOOSTER="$(curl -Ls https://api.github.com/repos/blahgeek/emacs-lsp-booster/releases/latest | jq -r '.assets[] | select(.name| test(".*musl.zip$")).browser_download_url')" || (true && sleep 5)
 curl --retry 3 -L#o /tmp/emacs-lsp-booster.zip "$EMACS_LSP_BOOSTER"
 unzip -d /usr/local/bin/ /tmp/emacs-lsp-booster.zip
