@@ -17,7 +17,7 @@ FEDORA_PACKAGES=(
     maildir-utils
     isync
     msmtp
-    tranmission-cli
+    transmission-cli
     playerctl
     libvterm
 )
