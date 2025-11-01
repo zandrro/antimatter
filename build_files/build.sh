@@ -13,6 +13,7 @@ FEDORA_PACKAGES=(
     fish
     rust-analyzer
     libavutil
+    libavformat # mpv-mpris
     maildir-utils
     isync
     msmtp
